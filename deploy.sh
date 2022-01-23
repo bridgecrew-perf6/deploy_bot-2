@@ -31,8 +31,13 @@ request_user_input_data
 is_ready_for_deploy
 
 if [[ $ready_deploy = true ]]; then
-    printf "${BLUE}i'm ready to merge ${GREEN}${branch}${BLUE}>${GREEN}${remote_branch}"
+    printf "${BLUE}i'm ready to merge ${GREEN}${branch}${BLUE}>${GREEN}${remote_branch}${BLUE}\n"
     # start merge
+    git add .
+    read -p "Enter commit message: " commit_msg
+    git commit -m "$commit_msg"
+    git push origin "$remote_branch"
+    printf "${GREEN}Done${BLUE}\n"
 else
     printf "${BLUE}Ok, may be next time. Good by!"
 fi
